@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>Login</title>
+  </head>
+  <body class="login-body">
+    <div class="login-container">
+      <h2>Welcome to the To-Do App</h2>
+      <form id="login-form">
+        <label for="name">Enter your name:</label>
+        <input type="text" id="name" required autofocus />
+        <button type="submit">Login</button>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("login-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const name = document.getElementById("name").value;
+          localStorage.setItem("userName", name); // Store the name in localStorage
+          window.location.href = "index.html"; // Redirect to the main app
+        });
+    </script>
+  </body>
+</html>

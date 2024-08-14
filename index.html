@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dražen_Vincek</title>
+    <link rel="icon" type="image/x-icon" href="images\favicon-128.png" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <div class="content">
+      <header class="header">
+        <h1 class="header__title"></h1>
+      </header>
+
+      <div class="main">
+        <!-- Task Input Section -->
+        <div class="task-input-wrapper">
+          <div class="task-input">
+            <p>Add your task</p>
+            <input
+              type="text"
+              id="new-task"
+              class="task-input__field"
+              placeholder="Add a new task..."
+              autofocus
+            />
+            <button id="add-task-btn" class="task-input__button">
+              Add Task
+            </button>
+          </div>
+
+          <!-- API Input Section -->
+          <div class="api-input">
+            <p>Fetch tasks from API</p>
+            <input
+              type="number"
+              id="api-task-count"
+              class="api-input__field"
+              placeholder="Number of API tasks"
+            />
+            <button id="fetch-tasks-btn" class="api-input__button">
+              Fetch API Tasks
+            </button>
+          </div>
+        </div>
+
+        <!-- Scrollable Task List -->
+        <div class="task-list-wrapper">
+          <div class="task-list-container">
+            <todo-list class="todo-list"></todo-list>
+          </div>
+
+          <!-- Task Action Buttons -->
+          <div class="task-actions">
+            <button id="delete-all-btn" class="task-actions__button">
+              Delete All
+            </button>
+            <button id="delete-manual-btn" class="task-actions__button">
+              Delete Manual
+            </button>
+            <button id="delete-api-btn" class="task-actions__button">
+              Delete API
+            </button>
+            <button id="delete-completed-btn" class="task-actions__button">
+              Delete completed
+            </button>
+            <button id="logout-btn" class="task-actions__button">Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+    <script>
+      const name = localStorage.getItem("userName");
+      const headerTitle = document.querySelector(".header__title");
+      headerTitle.textContent += `Welcome, ${name}!`;
+    </script>
+  </body>
+</html>
