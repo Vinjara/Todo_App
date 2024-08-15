@@ -27,7 +27,6 @@ class TodoList extends HTMLElement {
       padding: 0; /* Remove default padding */
       margin-top: 20px;
       overflow-y: auto; /* Enable vertical scrolling */
-      background-color: #1E2D2F;
     }
 
     .todo-list__counters {
@@ -43,6 +42,9 @@ class TodoList extends HTMLElement {
     }
 
     .todo-list__completed-count {
+      display: inline-flex;
+      justify-items:center;
+      align-items:center;
       border: 1px solid black;
       padding: 2px;
       background-color: #FBB13C; /* Background color to make sure text is visible */
@@ -52,22 +54,28 @@ class TodoList extends HTMLElement {
     .todo-list__completed-count span {
       display: inline-block;
       padding: 5px;
+      margin-left: 4px;
       background-color: #B66D0D; /* Background color for the span */
       color: #333; /* Text color for the span */
       font-weight: bold; /* Make text bold */
       border-radius: 4px; /* Optional: Add rounded corners to span */
     }
+    @media (max-width: 600px) {
+    .todo-list__completed-count p{
+    font-size: 14px;
+  }
+    }
   </style>
   
   <div class="todo-list__counters">
     <div class="todo-list__completed-count">
-      Completed <span>${this.getCompletedTasksCount()}</span>
+      <p>Completed</p> <span>${this.getCompletedTasksCount()}</span>
     </div>
     <div class="todo-list__completed-count">
-      Remaining <span>${this.getUncompletedCompletedTasksCount()}</span>
+      <p>Remaining</p> <span>${this.getUncompletedCompletedTasksCount()}</span>
     </div>
     <div class="todo-list__completed-count">
-      Total <span>${this.tasks.length}</span>
+      <p>Total</p> <span>${this.tasks.length}</span>
     </div>
   </div>
   <div class="todo-list">
@@ -105,6 +113,9 @@ class TodoList extends HTMLElement {
         "todo-toggled",
         (e) => this.toggleTaskCompletion(e.detail) // Toggle the task's completion status when the event is triggered
       );
+      todoItem.addEventListener("important-toggled", (e) =>
+        this.toggleImportant(e.detail)
+      );
     });
   }
   // Method to add a new task to the tasks array
@@ -126,6 +137,17 @@ class TodoList extends HTMLElement {
 
   // Method to toggle the completion status of a task
   toggleTaskCompletion(task) {
+    // Find the index of the task with the specified ID in the tasks array
+    const index = this.tasks.findIndex((t) => t.id === task.id);
+
+    // If the task was found (index is not -1)
+    if (index !== -1) {
+      this.tasks[index] = task; // Update the task in the tasks array
+      this.saveTasksToLocalStorage(); // Save the updated tasks array to local storage
+      this.render(); // Re-render the component to reflect the updated task
+    }
+  }
+  toggleImportant(task) {
     // Find the index of the task with the specified ID in the tasks array
     const index = this.tasks.findIndex((t) => t.id === task.id);
 

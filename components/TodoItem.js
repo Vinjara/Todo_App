@@ -24,7 +24,7 @@ class TodoItem extends HTMLElement {
           display: flex; 
           align-items: center;
           padding: 10px 15px;
-          border: 1px solid #e0e0e0; 
+          border: ${this._todo.important ? "red 2px" : "black 1px"}  solid ; 
           border-radius: 25px; 
           background-color: ${this._todo.completed ? "grey" : "#e0ffe0"};
           font-style: ${this._todo.fromApi ? "italic" : "normal"};
@@ -52,8 +52,8 @@ class TodoItem extends HTMLElement {
           background-color: #fff;
           border: 2px solid #4caf50;
           border-radius: 50%;
-          width: 20px;
-          height: 20px;
+          width: 25px;
+          height:25px;
           cursor: pointer;
           display: inline-flex;
           align-items: center;
@@ -67,9 +67,9 @@ class TodoItem extends HTMLElement {
         }
 
         input[type="checkbox"]::before {
-          content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z'/%3E%3C/svg%3E");
+          content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24'%3E%3Cpath fill='%23fff' d='M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z'/%3E%3C/svg%3E");
           transform: scale(0);
-          transition: transform 0.2s ease;
+          transition: transform 0.3s ease;
         }
 
         input[type="checkbox"]:checked::before {
@@ -112,6 +112,27 @@ class TodoItem extends HTMLElement {
         .todo-list__remove-button:hover {
           transform: scale(1.1); 
         }
+           .todo-list__important-button {
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          outline: none;
+          padding: 5px;
+          transition: transform 0.2s ease;
+        }
+
+        .todo-list__important-button img {
+          width: 20px;
+          height: 20px;
+        }
+
+        .todo-list__important:hover {
+          transform: scale(1.1); 
+        }
+        @media (max-width: 600px) {
+        .todo-item__date {
+          display: none;}
+          }
       </style>
       <div class="todo-list__item ${
         this._todo.completed ? "todo-list__item--completed" : ""
@@ -123,6 +144,9 @@ class TodoItem extends HTMLElement {
           <span class="todo-list__text">${this._todo.text}</span>
           <span class="todo-item__date">${this._todo.date}</span> 
         </div>
+         <button class="todo-list__important-button">
+          <img src="images/exclamation.svg" alt="Mark as important"> 
+        </button>
         <button class="todo-list__remove-button">
           <img src="images/delete.svg" alt="Remove Task"> 
         </button>
@@ -138,6 +162,10 @@ class TodoItem extends HTMLElement {
     this.shadowRoot
       .querySelector(".todo-list__remove-button")
       .addEventListener("click", () => this.removeTodo());
+
+    this.shadowRoot
+      .querySelector(".todo-list__important-button")
+      .addEventListener("click", () => this.toggleImportant());
   }
 
   // Method to toggle the completion status of the todo item
@@ -146,6 +174,13 @@ class TodoItem extends HTMLElement {
     this.render(); // Re-render the element to update its appearance
     // Dispatch a custom event to notify parent components of the change
     this.dispatchEvent(new CustomEvent("todo-toggled", { detail: this._todo }));
+  }
+  toggleImportant() {
+    this._todo.important = !this._todo.important;
+    this.render();
+    this.dispatchEvent(
+      new CustomEvent("important-toggled", { detail: this._todo })
+    );
   }
 
   // Method to remove the todo item

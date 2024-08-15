@@ -4,7 +4,7 @@
   --secondary-color: #79b27f;
   --accent-color: #09754f;
   --background-color: #f4f6f8;
-  --text-color: #333;
+  --text-color: #ffffff;
   --button-text-color: rgb(0, 0, 0);
   --border-color: #ddd;
   --focus-border-color: #95bc97;
@@ -32,12 +32,21 @@ html {
 
 /* Main Container Styling */
 .content {
-  max-width: 100%; /* Fixed width for the app */
-  height: 80vh; /* Full height of the viewport */
+  width: 200vh; /* Fixed width for the app */
+  height: 100vh; /* Full height of the viewport */
   display: flex;
   flex-direction: column;
   overflow: hidden; /* Hide any overflow to maintain layout */
   background-color: var(--background-color); /* Match background color */
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background-color: var(--primary-color);
+  padding: 40px;
+  box-sizing: border-box;
+  overflow: hidden; /* Hide overflow to maintain layout */
 }
 
 /* Header Styling */
@@ -54,16 +63,6 @@ html {
 }
 
 /* Main Container Styling */
-.main {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  background-color: var(--primary-color);
-  padding: 40px;
-  box-sizing: border-box;
-  overflow: hidden; /* Hide overflow to maintain layout */
-  border-radius: var(--border-radius);
-}
 
 /* Task Input Wrapper */
 .task-input-wrapper {
@@ -94,7 +93,7 @@ html {
 
 .task-input__field:focus,
 .api-input__field:focus {
-  background-color: lightblue;
+  background-color: #e0ffe0;
   border-color: var(--focus-border-color);
   box-shadow: 0 0 8px var(--focus-shadow-color);
   outline: none;
@@ -184,14 +183,34 @@ html {
     --font-size: 0.875rem; /* Smaller font size */
   }
 
+  body,
+  html {
+    height: auto; /* Allow height to be determined by content */
+    overflow-y: auto; /* Enable vertical scrolling */
+    width: 100%;
+  }
+
+  /* Main Container Styling */
+  .content {
+    width: 100%; /* Adjust width to be responsive */
+    height: auto; /* Allow height to grow based on content */
+    overflow-y: auto; /* Enable scrolling within the content area */
+  }
+
   .main {
-    padding: 10px; /* Minimize padding */
+    padding: 2px;
+
+    overflow-y: auto; /* Allow vertical scrolling for the main content */
+  }
+
+  .todo-list {
+    padding: 5px;
   }
 
   .task-actions {
     flex-grow: 0;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     margin-top: 5px;
     gap: 5px;
@@ -199,22 +218,27 @@ html {
 
   .task-input,
   .api-input {
-    flex-direction: row; /* Keep inputs and buttons in a row */
+    flex-direction: column; /* Keep inputs and buttons in a row */
     gap: 5px; /* Reduce gap between elements */
     margin-top: 5px;
-    height: 35px; /* Reduce height for better fit */
+    padding: 5px;
+  }
+  .task-input p,
+  .api-input p {
+    display: none;
   }
 
   .task-input__field,
   .api-input__field {
-    padding: 5px;
+    padding: 15px;
     flex-grow: 1; /* Allow input fields to take up available space */
   }
 
   .task-input__button,
   .api-input__button {
     width: auto; /* Let buttons adjust their width automatically */
-    padding: 5px 10px; /* Smaller padding for buttons */
+    padding: 10px 10px; /* Smaller padding for buttons */
+    margin-top: 5px;
   }
 
   .header__title {
@@ -224,9 +248,7 @@ html {
 
   .task-list-container {
     flex-grow: 1; /* Allow task list container to grow and take most of the space */
-    max-height: calc(
-      100vh - 120px
-    ); /* Deduct height for header, input, and actions */
+    height: 100vh; /* Deduct height for header, input, and actions */
     margin-top: 5px; /* Small margin at the top */
   }
 
