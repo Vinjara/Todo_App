@@ -79,18 +79,18 @@ class TodoItem extends HTMLElement {
         .todo-list__content {
           display: flex;
           align-items: center;
-          width: 100%; /* Full width to ensure clicking on the entire area */
+          width: 100%; 
         }
 
         .todo-list__text {
-          flex-grow: 1; /* Allow the text to take up available space */
+          flex-grow: 1; 
           padding: 0 15px;
           font-size: 1rem;
           color: ${this._todo.completed ? "white" : "black"};
         }
 
         .todo-item__date {
-          margin-right: 20px; /* Space between date and remove button */
+          margin-right: 20px; 
           font-size: 0.85rem;
           color: ${this._todo.completed ? "white" : "black"};          
         }
@@ -170,8 +170,8 @@ class TodoItem extends HTMLElement {
 
   // Method to toggle the completion status of the todo item
   toggleCompleted() {
-    this._todo.completed = !this._todo.completed; // Toggle the completed status
-    this.render(); // Re-render the element to update its appearance
+    this._todo.completed = !this._todo.completed;
+    this.render();
     // Dispatch a custom event to notify parent components of the change
     this.dispatchEvent(new CustomEvent("todo-toggled", { detail: this._todo }));
   }
