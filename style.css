@@ -5,6 +5,7 @@
   --accent-color: #09754f;
   --background-color: #f4f6f8;
   --text-color: #ffffff;
+  --text-color__secondary: black;
   --button-text-color: rgb(0, 0, 0);
   --border-color: #ddd;
   --focus-border-color: #95bc97;
@@ -32,7 +33,7 @@ html {
 
 /* Main Container Styling */
 .content {
-  width: 200vh; /* Fixed width for the app */
+  width: 100vw; /* Fixed width for the app */
   height: 100vh; /* Full height of the viewport */
   display: flex;
   flex-direction: column;
@@ -203,10 +204,6 @@ html {
     overflow-y: auto; /* Allow vertical scrolling for the main content */
   }
 
-  .todo-list {
-    padding: 5px;
-  }
-
   .task-actions {
     flex-grow: 0;
     display: flex;
@@ -263,6 +260,9 @@ html {
 
 /* ___________________________________________ login page ____________________________________________________ */
 /* Form Styling */
+body {
+  color: var(--text-color__secondary);
+}
 #login-form {
   display: flex;
   flex-direction: column;
@@ -272,7 +272,6 @@ html {
 /* Label Styling */
 #login-form label {
   font-size: var(--font-size);
-  color: var(--text-color);
   text-align: left;
 }
 

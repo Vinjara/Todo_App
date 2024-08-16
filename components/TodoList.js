@@ -26,6 +26,8 @@ class TodoList extends HTMLElement {
       list-style: none; /* Remove default list styling */
       padding: 0; /* Remove default padding */
       margin-top: 20px;
+      margin-right: 10px;
+      margin-left: 10px;
       overflow-y: auto; /* Enable vertical scrolling */
     }
 
